@@ -1,5 +1,5 @@
 >#### About
-This is basic Hibernate partialy xml and Annotaions based configuration ` console Application ,implemented using below jar
+This is basic Hibernate partialy xml and Annotaions configuration ` consoled based Application `,implemented using below jar
 - hibernate-core -5.6.14
 - hibernate-JPA -2.2 
 - hibernate-commons-annotations-5.1.2
