@@ -1,11 +1,14 @@
 package com.dz.app.saveVspersist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.dz.app.model.entity.Address;
 import com.dz.app.model.entity.Student;
 import com.dz.app.utility.Factory;
 
@@ -34,8 +37,18 @@ public class TestSavePersist {
 			session = sf.openSession();
 			//save method work out of transaction boundary even if we don't open transaction but persist method not work without transaction 
 			Student s = new Student("pankaj", "M");
+			
+			List<Address> addresses=new ArrayList<>();
+			addresses.add(new Address("mull road ","chandrapur"));
+			
+			s.setAddresses(addresses);
+			
 			session.save(s);
-
+			
+			//below changes will not get persisted
+			s.setName("praful");
+			
+			
 		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();
@@ -55,15 +68,34 @@ public class TestSavePersist {
 
 			Student s = new Student("aditya", "M");
 
+			List<Address> addresses=new ArrayList<>();
+			addresses.add(new Address("tukum road ","chandrapur"));
+			
+			s.setAddresses(addresses);
+			
 			// return serilizable object
 //			Serializable primKey=session.save(s);
 //			Long primKey=(Long) session.save(s);
-
+			
 			// return type is void
 			session.persist(s);
-
+			//
+			
+			//within transaction boundary after save method if we do some changes then it will get persisted  
+			//also work with the persist method 
+			s.setName("govinda");
+			
+			s.getAddresses().stream().forEach(adr ->{
+				adr.setCity("pune");
+			});
+			
 			tx.commit();
 
+			
+			// after transaction boundary if we do changes and try to flush then we will get exception "Cannot rollback transaction in current status [COMMITTED]"
+//			s.setName("govinda");
+//			session.flush();
+			
 		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();

@@ -1,10 +1,15 @@
 package com.dz.app.model.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -12,7 +17,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Student")
+@Table(name="student")
 public class Student {
 
 	@Id
@@ -25,6 +30,9 @@ public class Student {
     @Column(name="GENDER")
     private String gender;
 
+    @OneToMany(mappedBy="student" ,cascade=CascadeType.ALL)
+    private List<Address> addresses;
+    
 	public Long getSid() {
 		return sid;
 	}
@@ -47,6 +55,15 @@ public class Student {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public Student() {
