@@ -39,7 +39,12 @@ public class TestSavePersist {
 			Student s = new Student("pankaj", "M");
 			
 			List<Address> addresses=new ArrayList<>();
-			addresses.add(new Address("mull road ","chandrapur"));
+			Address address1=new Address("mull road ","chandrapur");
+			
+			//if we don't associate student in address then sid column in address table will remain blanks, other fields will be persisted
+			address1.setStudent(s);
+			
+			addresses.add(address1);
 			
 			s.setAddresses(addresses);
 			
