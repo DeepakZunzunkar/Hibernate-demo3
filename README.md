@@ -8,7 +8,7 @@ This is basic Hibernate partialy xml and Annotaions configuration ` consoled bas
 >[doc](https://docs.jboss.org/hibernate/entitymanager/3.5/reference/en/html/architecture.html)
 
 #### Difference save  vs persist 
-: Actually the difference between hibernate save() and persist() methods is depends on generator class we are using.
+> Actually the difference between hibernate save() and persist() methods is depends on generator class we are using.
 - If our generator class is assigned, then there is no difference between save() and persist() methods.
   Because generator ‘assigned’ means, as  a programmer we need to give the primary key value to save in the database right 
 - In case of other than assigned generator class, suppose if our generator class name is Increment means hibernate 
@@ -28,4 +28,26 @@ This is basic Hibernate partialy xml and Annotaions configuration ` consoled bas
   
 - save() operation cascades the associated instances if the association is mapped with ` cascade="save-update"`
 - persist() operation cascades the associated instances if the association is mapped with ` cascade="persist"`
+
+#### Get Vs Load
+>Both are from Session interface, and we will call them as session.get() & session.load()
+ Both will be use for retrieving the object (a row) from the database.
+ 
+ - Get Method return the persistent instance of the given entity class with the given identifier, or null if there is no such persistent instance. 
+ 	If the instance is already associated with the session, return that instance. This method never returns an uninitialized instance.
+ - Get Method fallow Eager loading means it will hit the database immediately and returns the original object.
+ - Load also return the persistent instance of the given entity class with the given identifier,assuming that the instance exists .
+   This method might return a proxied instance that is initialized on-demand, when a non-identifier method is accessed.
+   when we retrieve an instance that non-existence in db then it will throw an error  ObjectNotFoundException
+
+
+
+
+
+
+
+
+
+
+
 
