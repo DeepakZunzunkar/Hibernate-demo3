@@ -40,7 +40,23 @@ This is basic Hibernate partialy xml and Annotaions configuration ` consoled bas
    This method might return a proxied instance that is initialized on-demand, when a non-identifier method is accessed.
    when we retrieve an instance that non-existence in db then it will throw an error  ObjectNotFoundException
 
+#### Difference between clear(),close(), evict() 
+<b> clear() </b>
+>When this method get called inside transaction boundry then all objects which are
+          currently associate with particular session will be  disconnected/clean or no longer associate with that Session instance.
+		  but if second level cache eneabled then it is availble in that area.
+Therefore, after calling this method nothing will be performed on persistance layer or DB.
+		  
+<b> evict() </b>
+>Removes the object from the session. This method is used to dissociate/disconnect the specified object from the session.
 
+<b>  close() </b>
+>Close session by calling session.close() method, means End the session and releasing the JDBC Connection and clean up.		  
+
+`evict is for to remove particular object from session but clear and close both are used to remove all object from session
+  clear just remove or expire or invalided or clear  object from session but session still open here 
+  but in case close ,it remove all object from session plus close the session also 
+`
 
 
 
