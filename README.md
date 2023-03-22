@@ -58,10 +58,16 @@ Therefore, after calling this method nothing will be performed on persistance la
   but in case close ,it remove all object from session plus close the session also 
 `
 
+#### Update Vs Merge
+>Both update() and merge() methods in hibernate are used to convert the object which is in detached state into persistence state.
+ update and merge methods will come into picture whenever we loaded the same object again and again .it should be used as per situation.
 
+- Suppose we are dealing with any object in the same session then we should use update() or saveOrUpdate() method.and if you are sure that the session does not contains an already persistent instance with the same identifier,then use update to save the data in db.
+- if you want to save your modifications at any time without knowing about the state of an session, then use merge() .
+- Suppose we are creating a session and load an employee object. Now object in session cache. If we close the session at this point and we edit state of object and tried to save using update() it will throw exception. To make object persistent we need to open another session. Now we load same object again in current session. So if we want to update present object with previous object changes we have to use merge() method.Merge method will merge changes of both states of object and will save in database.
 
-
-
+- within a session if i load record using get or load method of session and and within transaction boundary if make changes in that fetch object
+ then that changes will be reflected means update query will get fired if change in the content without using upadte or merge method .
 
 
 
