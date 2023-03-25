@@ -1,5 +1,7 @@
 package com.dz.app.model.entity;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -16,16 +18,16 @@ public class BaseProperties {
 	private String createdBy;
 
 	@Column(name = "CREATEDON")
-	private String createdOn;
+	private Date createdOn;
 	
 	@Column(name = "UPDATEDON")
-	private String updatedOn;
+	private Date updatedOn;
 	
 	@Column(name = "UPDATEDBY")
 	private String updatedBy;
 
 	
-	public BaseProperties(String active,String createdOn, String createdBy, String updatedOn, String updatedBy) {
+	public BaseProperties(String active,Date createdOn, String createdBy, Date updatedOn, String updatedBy) {
 		super();
 		this.active = active;
 		this.createdOn = createdOn;
@@ -33,10 +35,10 @@ public class BaseProperties {
 		this.updatedOn = updatedOn;
 		this.updatedBy = updatedBy;
 	}
-	public String getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(String createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 	public String getCreatedBy() {
@@ -45,10 +47,10 @@ public class BaseProperties {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	public String getUpdatedOn() {
+	public Date getUpdatedOn() {
 		return updatedOn;
 	}
-	public void setUpdatedOn(String updatedOn) {
+	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
 	public String getUpdatedBy() {

@@ -2,6 +2,8 @@ package com.dz.app.criteria;
 
 import java.util.Scanner;
 
+import com.dz.app.utility.AppUtility;
+
 /**
  * @author dz Mar 24, 2023
  *
@@ -21,12 +23,13 @@ public class CriteriaDemo {
 			
 		do
 		{
-
+			AppUtility.loader();
 			System.out.println("\n1]Restriction .");
 			System.out.println("2]Projections .");
 			System.out.println("3]OrderBy .");
 			System.out.println("4]Pagination.");
-			System.out.println("5]Exit.");
+			System.out.println("5]dump employee data from anaother db schema.");
+			System.out.println("6]Exit.");
 			
 			System.out.println("\nSelect you choice :");
 			
@@ -39,7 +42,7 @@ public class CriteriaDemo {
 												
 //								EmployeeDaoImpl.getAllRecord();
 //								ProjectionImpl.aggrigateFunction();
-								
+								AppUtility.loader();
 								System.out.println("\n************Restrictions Menu**********************************");
 								System.out.println("\n");
 								System.out.println("\t1]Equals");
@@ -101,7 +104,7 @@ public class CriteriaDemo {
 								
 //								EmployeeDaoImpl.getAllRecord();
 //								ProjectionImpl.aggrigateFunction();
-								
+								AppUtility.loader();
 								System.out.println("\n************Aggrigate Functions Menu**********************************");
 								System.out.println("\n");
 								System.out.println("\t1]Aggrigate Functions :");
@@ -151,6 +154,7 @@ public class CriteriaDemo {
 							}while(choice.equalsIgnoreCase("yes"));
 							break;
 				case 3:		
+							AppUtility.loader();
 							System.out.println("\n\t1]OrderBy name Descending order");
 							System.out.println("\t2]Order by salary Descending Order");
 							
@@ -172,10 +176,15 @@ public class CriteriaDemo {
 							}
 							break;
 				case 4:		
+							AppUtility.loader();
 //							EmployeeDaoImpl.pagination(0,5);
 							break;
-
-				case 5:
+				case 5:		
+							AppUtility.loader();
+							AppUtility.dumpEmployeeData();
+							break;
+				case 6:
+							AppUtility.loader();
 							System.exit(0);
 							break;
 				default:

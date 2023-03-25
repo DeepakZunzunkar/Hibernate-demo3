@@ -37,4 +37,11 @@ public class Factory {
         }
         return sf;
     }
+	
+	public static synchronized SessionFactory getSessionFactory(String configFileName) {
+        if (sf == null) {
+        	sf = new Configuration().configure(configFileName).buildSessionFactory();
+        }
+        return sf;
+    }
 }

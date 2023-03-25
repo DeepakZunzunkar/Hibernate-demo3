@@ -28,10 +28,10 @@ public class Employee {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long eid;
     
-    @Column(name="FIRST_NAME")
+    @Column(name="FIRSTNAME")
     private String firstName;
     
-    @Column(name="LAST_NAME")
+    @Column(name="LASTNAME")
     private String lastName;
     
 //    @Enumerated(EnumType.STRING)
@@ -54,6 +54,9 @@ public class Employee {
 //    @Transient
 //    private Integer age;
 
+    @Column(name="SALARY")
+    private Double salary;
+    
 	public Long getEid() {
 		return eid;
 	}
@@ -111,6 +114,7 @@ public class Employee {
 		this.birthDate = birthDate;
 	}
 
+	
 //	public Integer getAge() {
 //		return age;
 //	}
@@ -125,6 +129,14 @@ public class Employee {
 //				+ ", status=" + status + ", baseProperties=" + baseProperties + ", birthDate=" + birthDate + ", age="
 //				+ age + "]";
 //	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
 
 	@Override
 	public String toString() {
