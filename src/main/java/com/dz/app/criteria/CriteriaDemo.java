@@ -1,7 +1,10 @@
 package com.dz.app.criteria;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.dz.app.model.entity.Employee;
+import com.dz.app.serviceImpl.RestrictionImpl;
 import com.dz.app.utility.AppUtility;
 
 /**
@@ -19,6 +22,7 @@ public class CriteriaDemo {
 		int option=0;
 		String choice="yes";
 		String status="";
+		List<Employee> employees=null;
 		System.out.println("***************wecome***********************\n");
 			
 		do
@@ -61,8 +65,14 @@ public class CriteriaDemo {
 								switch (option) 
 								{
 									case 1:	
-											
-//											EmployeeDaoImpl.equals();
+											System.out.println("Enter your choise from below property name mapped with column: ");
+											String column= AppUtility.colunmChoise(sc);
+											if(column!=null && !column.isEmpty()) {
+												System.out.println("Enter value  : ");
+												String value = sc.next();
+												employees= RestrictionImpl.equals(column,value);
+												AppUtility.displayRecords(employees);
+											}
 											break;
 									case 2:
 //											EmployeeDaoImpl.greaterThan();
@@ -94,10 +104,10 @@ public class CriteriaDemo {
 											System.err.println("INVALID Choice ...try again..");
 											break;
 								}
-								System.out.println("\nDo you want continue other operations from Restriction Menu (yes/no):");
+								System.out.println("\nDo you want continue other operations from Restriction Menu (yes[y] / no[n] ):");
 								choice=sc.next();
 								
-							}while(choice.equalsIgnoreCase("yes"));
+							}while(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y"));
 							break;
 				case 2:
 							do{
@@ -148,10 +158,10 @@ public class CriteriaDemo {
 											break;
 								}
 								
-							System.out.println("\nDo you want continue other operations from Aggrigate Functions Menu(yes/no):");
+							System.out.println("\nDo you want continue other operations from Aggrigate Functions Menu(yes[y] / no[n] ):");
 							choice=sc.next();
 								
-							}while(choice.equalsIgnoreCase("yes"));
+							}while(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y"));
 							break;
 				case 3:		
 							AppUtility.loader();

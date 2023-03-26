@@ -3,6 +3,7 @@ package com.dz.app.utility;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.hibernate.Criteria;
@@ -33,7 +34,7 @@ public class AppUtility {
 		System.out.println("\n");
 	}
 	
-	public  static void displayRecord(List<Employee> employeeList) {
+	public  static void displayRecords(List<Employee> employeeList) {
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------");
 		System.out.println("ID	|	NAME		|	STATUS 	|	AGE	| 	SALARY 		|	CREATED ON	 ");
@@ -49,6 +50,20 @@ public class AppUtility {
 		System.out.println("-----------------------------------------------------------------------------------------------------------------\n");
 	}
 	
+	public  static void displayRecord(Employee emp) {
+		
+		System.out.println("\n-------------------------------------------------------------------------------------------------------------");
+		System.out.println("ID	|	NAME		|	STATUS 	|	AGE	| 	SALARY 		|	CREATED ON	 ");
+		System.out.println("---------------------------------------------------------------------------------------------------------------");   
+		
+		if(emp!=null) {
+			System.out.println(emp.getEid()+"\t|"+emp.getFirstName()+" "+emp.getLastName()+"\t\t|\t"+emp.getStatus()+"\t|\t"+DateUtils.getAge(DateUtils.convertJUtilDateTimeToString(emp.getBirthDate()))+"\t|\t"+df.format(emp.getSalary())+"\t|\t"+sdf.format(emp.getBaseProperties().getCreatedOn()));
+		}else {
+			System.err.println("Not Found ...");
+		}
+		System.out.println("-----------------------------------------------------------------------------------------------------------------\n");
+	}
+
 	@SuppressWarnings("unchecked")
 	public static void dumpEmployeeData(){
 
@@ -61,7 +76,7 @@ public class AppUtility {
 			Session session= sf1.openSession();
 			Criteria criteria=session.createCriteria(Employee.class);
 			employeesList=criteria.list();
-			displayRecord(employeesList);
+			displayRecords(employeesList);
 			
 			session.close();
 			sf1.close();
@@ -95,5 +110,37 @@ public class AppUtility {
 			}
 		}
 		
+	}
+	
+	public static String colunmChoise(Scanner sc){
+		System.out.println("1.firstName \t2.lastName \t3.gender \t4.status \t5.baseProperties.active");
+		
+		String column="";
+		int choise = sc.nextInt();
+	
+		switch(choise){
+			
+			case 1:
+					column ="firstName";
+					break;
+					
+			case 2: 
+					column ="lastName";
+					break;
+			
+			case 3: 
+					column ="gender";
+					break;
+			case 4: 
+					column ="status";
+					break;
+			case 5: 
+					column ="baseProperties.active";
+					break;		
+			default:	
+					System.err.println("invalid choise");
+					break;
+		}
+		return column;
 	}
 }	
