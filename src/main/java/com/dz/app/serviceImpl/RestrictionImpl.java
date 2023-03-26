@@ -1,5 +1,6 @@
 package com.dz.app.serviceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -99,6 +100,21 @@ public class RestrictionImpl {
 			
 			Criteria cr = session.createCriteria(Employee.class);
 			cr.add(Restrictions.between("salary", low, high));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+	
+	public static List<Employee> dateBetween(Date startDate, Date endDate) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.add(Restrictions.between("birthDate", startDate, endDate));
 			employees =cr.list();
 
 		} catch (Exception e) {

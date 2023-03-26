@@ -3,7 +3,9 @@ package com.dz.app.utility;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -190,34 +192,43 @@ public class AppUtility {
 		return letter;
 	}
 
-	public static List<String> betweenManuChoise(Scanner sc) {
+	public static Map<Integer, List<String>> betweenManuChoise(Scanner sc) {
 		System.out.println("\n");
 		System.out.println("\t1.check Employee salary Between user Enter salary :");
-		System.out.println("\t2.check Employee birthDate Between user Enter dates :");
+		System.out.println("\t2.check Employee birthDate[yyyy-MM-dd] Between user Enter dates :");
+		
 		List<String> list= new ArrayList<>();
-		int option = sc.nextInt();
+		Map<Integer, List<String>> selectedChoice=new HashMap<>();
+		
+		Integer option = sc.nextInt();
 		switch(option){
 		
 		case 1:
 				System.out.println("Enter lowest salary :");
-				 list.add(sc.next());
+				list.add(sc.next());
 	
 				System.out.println("Enter Highest salary :");
 				list.add(sc.next());
+				
+				selectedChoice.put(option, list);
+				
 				break;
 				
 		case 2: 
-				System.out.println("Enter first date :");
+				System.out.println("Enter start date :");
 				 list.add(sc.next());
 	
-				System.out.println("Enter second date  :");
+				System.out.println("Enter end date  :");
 				list.add(sc.next());
+				
+				selectedChoice.put(option, list);
+				
 				break;
 				
 		default:	
 				System.err.println("invalid choise");
 				break;
 		}
-		return list;
+		return selectedChoice;
 	}
 }	

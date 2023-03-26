@@ -1,11 +1,13 @@
 package com.dz.app.criteria;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.dz.app.model.entity.Employee;
 import com.dz.app.serviceImpl.RestrictionImpl;
 import com.dz.app.utility.AppUtility;
+import com.dz.app.utility.DateUtils;
 
 /**
  * @author dz Mar 24, 2023
@@ -104,11 +106,29 @@ public class CriteriaDemo {
 											break;
 									
 									case 5:
-											List<String> choises= AppUtility.betweenManuChoise(sc);
+											Map<Integer, List<String>> choises= AppUtility.betweenManuChoise(sc);
 											if(choises !=null && !choises.isEmpty()) {
-												employees = RestrictionImpl.salaryBetween(Double.parseDouble(choises.get(0)),Double.parseDouble(choises.get(1)));
-												AppUtility.displayRecords(employees);
-												employees.clear();
+												
+												for (Map.Entry<Integer,List<String>> entry : choises.entrySet()) {
+//												    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+													if(entry.getKey() == 1) {
+														
+														List<String> values = entry.getValue();
+														employees = RestrictionImpl.salaryBetween(Double.parseDouble(values.get(0)),Double.parseDouble(values.get(1)));
+														AppUtility.displayRecords(employees);
+														employees.clear();
+													
+													}else if(entry.getKey() == 2) {
+														List<String> values = entry.getValue();
+														employees = RestrictionImpl.dateBetween(DateUtils.convertStringToJUtilDateTime(values.get(0)),DateUtils.convertStringToJUtilDateTime(values.get(1)));
+														AppUtility.displayRecords(employees);
+														employees.clear();
+													}else {
+														System.err.println("invalid choise");
+													}
+												}
+												
+											
 											}
 											break;
 											
