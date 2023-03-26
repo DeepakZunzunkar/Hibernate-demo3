@@ -23,6 +23,7 @@ public class CriteriaDemo {
 		String choice="yes";
 		String status="";
 		List<Employee> employees=null;
+		Double salary=0.00;
 		System.out.println("***************wecome***********************\n");
 			
 		do
@@ -72,14 +73,25 @@ public class CriteriaDemo {
 												String value = sc.next();
 												employees= RestrictionImpl.equals(column,value);
 												AppUtility.displayRecords(employees);
+												employees.clear();
 											}
 											break;
 									case 2:
-//											EmployeeDaoImpl.greaterThan();
+											System.out.println("check Employee Salary greater than user Enter salary ");
+											System.out.println("Enter salary :");
+											salary=sc.nextDouble();
+											employees = RestrictionImpl.greaterThan(salary);
+											AppUtility.displayRecords(employees);
+											employees.clear();
 											break;
 											
 									case 3:
-//											EmployeeDaoImpl.lessThan();
+											System.out.println("check Employee Salary less than user Enter salary ");
+											System.out.println("Enter salary :");
+											salary=sc.nextDouble();
+											employees = RestrictionImpl.lessThan(salary);
+											AppUtility.displayRecords(employees);
+											employees.clear();
 											break;
 									
 									case 4:

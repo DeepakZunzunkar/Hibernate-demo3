@@ -46,6 +46,8 @@ public class AppUtility {
 				System.out.println(emp.getEid()+"\t|"+emp.getFirstName()+" "+emp.getLastName()+"\t\t|\t"+emp.getStatus()+"\t|\t"+DateUtils.getAge(DateUtils.convertJUtilDateTimeToString(emp.getBirthDate()))+"\t|\t"+df.format(emp.getSalary())+"\t|\t"+sdf.format(emp.getBaseProperties().getCreatedOn()));
 			}
 //			employeeList.clear();
+		}else {
+			System.err.println("Not Found ...");
 		}
 		System.out.println("-----------------------------------------------------------------------------------------------------------------\n");
 	}

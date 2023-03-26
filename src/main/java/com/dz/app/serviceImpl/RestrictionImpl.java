@@ -43,7 +43,36 @@ public class RestrictionImpl {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-//			throw e;
+		}
+		return employees;
+	}
+	
+	public static List<Employee> greaterThan(Double value) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.add(Restrictions.gt("salary",value));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+	
+	public static List<Employee> lessThan(Double value) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.add(Restrictions.lt("salary",value));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return employees;
 	}
