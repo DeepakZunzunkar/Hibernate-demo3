@@ -95,11 +95,21 @@ public class CriteriaDemo {
 											break;
 									
 									case 4:
-//											EmployeeDaoImpl.like();
+											String letter= AppUtility.likeManuChoise(sc);
+											if(letter!=null && !letter.isEmpty()) {
+												employees = RestrictionImpl.like(letter);
+												AppUtility.displayRecords(employees);
+												employees.clear();
+											}
 											break;
 									
 									case 5:
-//											EmployeeDaoImpl.between();
+											List<String> choises= AppUtility.betweenManuChoise(sc);
+											if(choises !=null && !choises.isEmpty()) {
+												employees = RestrictionImpl.salaryBetween(Double.parseDouble(choises.get(0)),Double.parseDouble(choises.get(1)));
+												AppUtility.displayRecords(employees);
+												employees.clear();
+											}
 											break;
 											
 									case 6:

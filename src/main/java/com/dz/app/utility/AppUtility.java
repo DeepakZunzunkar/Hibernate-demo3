@@ -2,6 +2,7 @@ package com.dz.app.utility;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -144,5 +145,79 @@ public class AppUtility {
 					break;
 		}
 		return column;
+	}
+	
+	public static String likeManuChoise(Scanner sc) {
+		
+		System.out.println("\n1.check Employee Name Start with letter Enter By User");
+		System.out.println("2.check Employee Name Ends with letter Enter By User");
+
+		System.out.println("\nSelect your choice ");
+		String letter ="";
+		
+		int option = sc.nextInt();
+
+		/*if (option == 1) {
+			System.out.println("Enter Letter :");
+			letter = sc.next();
+			letter = letter + "%";
+			
+		}else if (option == 2) {
+			System.out.println("Enter Letter :");
+			letter = sc.next();
+			letter = "%" + letter;
+		}*/
+		
+		switch(option){
+		
+			case 1:
+					System.out.println("Enter Letter :");
+					letter = sc.next();
+					letter = letter + "%";
+					break;
+					
+			case 2: 
+					System.out.println("Enter Letter :");
+					letter = sc.next();
+					letter = "%" + letter;
+					break;
+					
+			default:	
+					System.err.println("invalid choise");
+					break;
+		}
+		
+		return letter;
+	}
+
+	public static List<String> betweenManuChoise(Scanner sc) {
+		System.out.println("\n");
+		System.out.println("\t1.check Employee salary Between user Enter salary :");
+		System.out.println("\t2.check Employee birthDate Between user Enter dates :");
+		List<String> list= new ArrayList<>();
+		int option = sc.nextInt();
+		switch(option){
+		
+		case 1:
+				System.out.println("Enter lowest salary :");
+				 list.add(sc.next());
+	
+				System.out.println("Enter Highest salary :");
+				list.add(sc.next());
+				break;
+				
+		case 2: 
+				System.out.println("Enter first date :");
+				 list.add(sc.next());
+	
+				System.out.println("Enter second date  :");
+				list.add(sc.next());
+				break;
+				
+		default:	
+				System.err.println("invalid choise");
+				break;
+		}
+		return list;
 	}
 }	

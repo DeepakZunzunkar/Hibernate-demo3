@@ -76,4 +76,34 @@ public class RestrictionImpl {
 		}
 		return employees;
 	}
+	
+	public static List<Employee> like(String letter) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.add(Restrictions.like("firstName",letter));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+
+	public static List<Employee> salaryBetween(Double low, Double high) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.add(Restrictions.between("salary", low, high));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
 }
