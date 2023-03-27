@@ -136,5 +136,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		
 	}
-
+	
+	
+	// sql query to get age without  our class dateUtils
+	/*SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthdate)), '%Y') + 0 AS age
+FROM adpemployee;*/
+	
+		
+	// query to get age gt than 
+//	SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthdate)), '%Y') AS age
+//	FROM adpemployee where DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthdate)), '%Y') > 30;
+	
+//SELECT firstname,YEAR(birthdate)as year ,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthdate)), '%Y') AS age
+//	FROM adpemployee where DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthdate)), '%Y') > 30;
+	
+	
 }

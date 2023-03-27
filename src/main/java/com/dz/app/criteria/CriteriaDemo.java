@@ -95,7 +95,9 @@ public class CriteriaDemo {
 											AppUtility.displayRecords(employees);
 											employees.clear();
 											break;
-									
+											// i have DOB column but not age in db then 
+											// if how do query to check age greater than some age ?
+											// if want to check with year of dob ? like many employee join in this year ?
 									case 4:
 											String letter= AppUtility.likeManuChoise(sc);
 											if(letter!=null && !letter.isEmpty()) {
@@ -133,11 +135,31 @@ public class CriteriaDemo {
 											break;
 											
 									case 6:
-//											EmployeeDaoImpl.and();
+											System.out.println("check Employee salary Between user Enter salary using restiction 'and' ");
+											System.out.println("Enter salary greater than equal to :");
+											double gteqsalary=sc.nextDouble();
+											System.out.println("Enter salary less than equal to :");
+											double ltsalary=sc.nextDouble();
+											
+											employees = RestrictionImpl.and(gteqsalary,ltsalary);
+											AppUtility.displayRecords(employees);
+											employees.clear();
+											
 											break;
 											
 									case 7:
-//											EmployeeDaoImpl.Or();
+											System.out.println("Employee whose salary greater than user enter salary or whose name start with user eneter letter");
+											System.out.println("Enter salary greater than equal to :");
+											double gtsalary=sc.nextDouble();
+											
+											System.out.println("Enter Letter :");
+											letter = sc.next();
+											letter = letter + "%";
+											
+											employees = RestrictionImpl.or(gtsalary,letter);
+											AppUtility.displayRecords(employees);
+											employees.clear();
+											
 											break;
 								   case 8 :
 									   		System.exit(0);

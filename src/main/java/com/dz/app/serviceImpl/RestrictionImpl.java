@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import com.dz.app.model.entity.Employee;
@@ -115,6 +116,47 @@ public class RestrictionImpl {
 			
 			Criteria cr = session.createCriteria(Employee.class);
 			cr.add(Restrictions.between("birthDate", startDate, endDate));
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+
+	public static List<Employee> and(double gtsalary, double ltsalary) {
+		
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			
+			Criterion gtcriterion=Restrictions.gt("salary",gtsalary);
+			
+			Criterion ltcriterion=Restrictions.le("salary",ltsalary);
+			
+			cr.add(Restrictions.and(gtcriterion,ltcriterion));
+			
+			employees =cr.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+
+	public static List<Employee> or(double gtsalary, String letter) {
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			
+			Criterion gtcriterion=Restrictions.gt("salary",gtsalary);
+			
+			Criterion startWithLetter=Restrictions.like("firstName",letter);
+			
+			cr.add(Restrictions.or(gtcriterion,startWithLetter));
+			
 			employees =cr.list();
 
 		} catch (Exception e) {
