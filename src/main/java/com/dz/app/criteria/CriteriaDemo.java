@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.dz.app.model.entity.Employee;
+import com.dz.app.serviceImpl.ProjectionImpl;
 import com.dz.app.serviceImpl.RestrictionImpl;
 import com.dz.app.utility.AppUtility;
 import com.dz.app.utility.DateUtils;
@@ -26,10 +27,16 @@ public class CriteriaDemo {
 		String status="";
 		List<Employee> employees=null;
 		Double salary=0.00;
+		Double sum=0.00;
+		Double maxSalary=0.00;
+		Double minSalary=0.00;
+		Double avSalary=0.00;
+		Long totalEmp=0L;
 		System.out.println("***************wecome***********************\n");
 			
 		do
 		{
+			AppUtility.initializeLandingPage();
 			AppUtility.loader();
 			System.out.println("\n1]Restriction .");
 			System.out.println("2]Projections .");
@@ -37,6 +44,7 @@ public class CriteriaDemo {
 			System.out.println("4]Pagination.");
 			System.out.println("5]dump employee data from anaother db schema.");
 			System.out.println("6]Exit.");
+			
 			
 			System.out.println("\nSelect you choice :");
 			
@@ -181,13 +189,12 @@ public class CriteriaDemo {
 								AppUtility.loader();
 								System.out.println("\n************Aggrigate Functions Menu**********************************");
 								System.out.println("\n");
-								System.out.println("\t1]Aggrigate Functions :");
-								System.out.println("\t2]sum");
+								System.out.println("\t1]sum");
+								System.out.println("\t2]max");
 								System.out.println("\t3]min");
-								System.out.println("\t4]max");
-								System.out.println("\t5]avg");
-								System.out.println("\t6]rowcount");
-								System.out.println("\t7]Exit");
+								System.out.println("\t4]avg");
+								System.out.println("\t5]rowcount");
+								System.out.println("\t6]Exit");
 								System.out.println("\n");
 								
 								System.out.println("\tselect your choice :");
@@ -195,25 +202,28 @@ public class CriteriaDemo {
 								
 								switch (option) 
 								{
-									case 1:	
-//											ProjectionImpl.aggrigateFunction();
+
+									case 1:
+											sum=ProjectionImpl.sum("salary");
+											System.out.println("sum of salary of All Employees -> "+sum);
 											break;
 									case 2:
-//											ProjectionImpl.sum();
+											maxSalary=ProjectionImpl.max("salary");
+											System.out.println("Maximum salary among all Employee ->"+maxSalary);
 											break;
 									case 3:
-//											ProjectionImpl.min();
+											minSalary=ProjectionImpl.min("salary");
+											System.out.println("Minimum salary among all Employee ->"+minSalary);
 											break;
 									case 4:
-//											ProjectionImpl.max();
+											avSalary=ProjectionImpl.avg("salary");
+											System.out.println("Average of Employees salary :"+avSalary);
 											break;
 									case 5:
-//											ProjectionImpl.avg();
+											totalEmp=ProjectionImpl.totalEmployeeCount();
+											System.out.println("Total Employees :"+totalEmp);
 											break;
 									case 6:
-//											ProjectionImpl.countEmployee();
-											break;
-									case 7:
 											System.exit(0);
 											break;
 											

@@ -17,12 +17,24 @@ import org.hibernate.Transaction;
 import com.dz.app.model.entity.Employee;
 import com.dz.app.service.EmployeeService;
 import com.dz.app.serviceImpl.EmployeeServiceImpl;
+import com.dz.app.serviceImpl.ProjectionImpl;
 
 
 public class AppUtility {
 	
 	private static final DecimalFormat df = new DecimalFormat("0.00");
 	private static final SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY");
+	static EmployeeService eService =null;
+	static List<Employee> employees=null;
+	static Double salary=0.00;
+	static Double sum=0.00;
+	static Double maxSalary=0.00;
+	static Double minSalary=0.00;
+	static Double avSalary=0.00;
+	static Long totalEmp=0L;
+	static Long activeEmp;
+	static Long onLeaveEmp;
+	static Long terminatedEmp;
 	
 	public static void loader(){
 		System.out.print("Loading ");
@@ -97,7 +109,7 @@ public class AppUtility {
 		
 		if(employeesList!=null && !employeesList.isEmpty()) {
 			
-			EmployeeService eService =new EmployeeServiceImpl();
+			eService=new EmployeeServiceImpl();
 			Transaction tx=null;
 			try(Session session=Factory.getSessionFactory().openSession()) {
 				
@@ -230,5 +242,34 @@ public class AppUtility {
 				break;
 		}
 		return selectedChoice;
+	}
+
+	public static void initializeLandingPage() {
+		
+		totalEmp=ProjectionImpl.totalEmployeeCount();
+		activeEmp=ProjectionImpl.employeeCountByStatus("A");
+		onLeaveEmp=ProjectionImpl.employeeCountByStatus("L");
+		terminatedEmp=ProjectionImpl.employeeCountByStatus("T");
+		
+		sum=ProjectionImpl.sum("salary");
+		maxSalary=ProjectionImpl.max("salary");
+		minSalary=ProjectionImpl.min("salary");
+		avSalary=ProjectionImpl.avg("salary");
+		
+		
+		eService=new EmployeeServiceImpl();
+		employees=eService.getAllEmployees();
+		displayRecords(employees);
+		employees.clear();
+		
+		System.out.println("Active Employee			: 	 "+activeEmp);
+		System.out.println("On Leave Employee		: 	 "+onLeaveEmp);
+		System.out.println("Terminated Employee		:	 "+terminatedEmp);
+		System.out.println("--------------------------------------------------");
+		System.out.println("Total Employee			: 	 "+totalEmp+"\n");
+		System.out.println("sum of salary of All Employee :"+ df.format(sum) +"\n");
+		System.out.println("Maximum salary among all Employee :"+ df.format(maxSalary) +"\n");
+		System.out.println("Minimum salary among all Employee :"+df.format(minSalary) +"\n");
+		System.out.println("Average of Employees salary :"+ df.format(avSalary) +"\n");
 	}
 }	
