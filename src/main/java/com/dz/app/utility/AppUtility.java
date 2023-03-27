@@ -3,16 +3,22 @@ package com.dz.app.utility;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import javax.persistence.Column;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.dz.app.model.entity.Employee;
 import com.dz.app.service.EmployeeService;
@@ -272,4 +278,34 @@ public class AppUtility {
 		System.out.println("Minimum salary among all Employee :"+df.format(minSalary) +"\n");
 		System.out.println("Average of Employees salary :"+ df.format(avSalary) +"\n");
 	}
+
+	public static void OrderByDesc(String coulmnName) {
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.addOrder(Order.desc(coulmnName));
+			employees =cr.list();
+			displayRecords(employees);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public static void OrderByAsc(String coulmnName) {
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.addOrder(Order.asc(coulmnName));
+			employees =cr.list();
+			displayRecords(employees);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }	

@@ -239,20 +239,24 @@ public class CriteriaDemo {
 							break;
 				case 3:		
 							AppUtility.loader();
-							System.out.println("\n\t1]OrderBy name Descending order");
-							System.out.println("\t2]Order by salary Descending Order");
+							System.out.println("\n\tElgible columns");
+							System.out.println("== > firstName \tlastName \tsalary");
+
+							System.out.println("\n\t1]OrderBy entered column name Descending order");
+							System.out.println("\t2]Order by entered column name Ascending Order");
 							
-							System.out.println("Select yur choice :");
+							System.out.println("Select your choice :");
 							option=sc.nextInt();
-							
+							System.out.println("Enter from above ,coulmn name : ");
+							String coulmnName=sc.next();
 							switch (option) 
 							{
 								case 1:	
-//										EmployeeDaoImpl.OrderByNameDesc();
+										AppUtility.OrderByDesc(coulmnName);
 										break;
 		
 								case 2:
-//										EmployeeDaoImpl.OrderBySalaryDesc();
+									AppUtility.OrderByAsc(coulmnName);
 										break;
 								default:	
 										System.err.println("Invalid choice try againnnn...");
