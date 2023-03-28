@@ -265,7 +265,46 @@ public class CriteriaDemo {
 							break;
 				case 4:		
 							AppUtility.loader();
-//							EmployeeDaoImpl.pagination(0,5);
+							System.out.println("\nEnter each page  size : ");
+							Integer pageSize =sc.nextInt();
+							System.err.println("note : now on all pages record size will be "+pageSize +"\n\n");
+							
+							totalEmp=ProjectionImpl.totalEmployeeCount();
+							Double totalPages =(double) Math.ceil(totalEmp.doubleValue()/pageSize.doubleValue());
+
+							AppUtility.pagination(pageSize,totalPages.intValue(),1);
+							String ch="yes";
+							
+							System.out.println("\n");
+							System.out.println("\t1] go to the user entered page number ");
+							System.out.println("\t2] exit from pagination menu ");
+							System.out.println("\nSelect your choice :");
+							int n=sc.nextInt();
+							switch(n) {
+								
+								case 1  :
+											do {
+												System.out.println("\nEnter page number : ");
+												Integer pageNumber= sc.nextInt();
+												if(pageNumber <= totalPages) {
+													pageNumber=pageNumber==0?1:pageNumber;
+													AppUtility.pagination(pageSize,totalPages.intValue(), pageNumber);
+												}else {
+													System.err.println("total pages are "+totalPages+" only ! ...");
+												}
+												
+												
+												System.out.println("\nagain do you want to enter page number (yes[y] / no[n] ) ?");
+												ch=sc.next();
+												
+											}while(ch.equalsIgnoreCase("yes") || ch.equalsIgnoreCase("y"));
+											
+								case 2  :
+											break;
+								default : 	System.err.println("Invalid Choice,try again");
+											break;
+							}
+
 							break;
 				case 5:		
 							AppUtility.loader();

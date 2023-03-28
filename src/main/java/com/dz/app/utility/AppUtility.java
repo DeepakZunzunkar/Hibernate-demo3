@@ -292,7 +292,7 @@ public class AppUtility {
 		}
 		
 	}
-
+	
 	public static void OrderByAsc(String coulmnName) {
 		List<Employee> employees=null;
 		try(Session session=Factory.getSessionFactory().openSession()){
@@ -307,5 +307,113 @@ public class AppUtility {
 		
 	}
 	
+	public static List<Employee> getEmployeeOrderByEid() {
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.addOrder(Order.desc("eid"));
+			employees =cr.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
 	
+	
+	public static List<Employee> getEmployeeOrderByEidandPagination(Integer currentPage, Integer pageSize) {
+		List<Employee> employees=null;
+		try(Session session=Factory.getSessionFactory().openSession()){
+			
+			Criteria cr = session.createCriteria(Employee.class);
+			cr.addOrder(Order.desc("eid"));
+//			int page=4;
+			int pageVal=currentPage-1;
+			pageVal=pageVal*pageSize;
+			
+			cr.setFirstResult(pageVal);
+			cr.setMaxResults(pageSize);
+			
+			// total pages 6
+			// 0-4  , 5-9 ,  10-14 , 15-19 , 20-25 , 26-
+//				1	   2	   3      4		  5			6
+			
+			employees =cr.list();
+			displayRecords(employees);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+	
+	//find total pages , current page , per page 
+	public static void pagination(Integer perPage,Integer totalPages,Integer currentPage) {
+		
+//		Double perPage=5.0;
+		
+//		totalEmp=ProjectionImpl.totalEmployeeCount();
+//		System.out.println("total "+totalEmp);
+		
+//		The java.lang.Math.round() method in Java is used to round off the decimal numbers to their nearest integer value. 
+//		This integer value can be higher or lower than the decimal value being rounded off.
+//		This method takes both float and double variables as arguments.
+		
+/*		Double totalPages =(double) Math.round(27/perPage);*/
+		//The result of the argument being rounded to an integer is calculated by adding 1/2 i.e. 0.5 
+		//if result is less than 0.5 then it is round off to 0
+		//if result is greater than 0.5 then it is round off to 1
+		
+		//The java.lang.Math.ceil() method is used to find the nearest integer value that is greater than or equal to the number given as an argument.
+//		Double totalPages =(double) Math.ceil(totalEmp/perPage);
+		
+//		System.out.println(totalPages);
+		//per page 5 records 
+		//  28/5 =5.6 = 6
+		
+		
+		getEmployeeOrderByEidandPagination(currentPage,perPage);
+		
+		System.out.println("Total Pages : "+totalPages +"\t\t|\t current page : "+currentPage);
+
+		/*Scanner sc=new Scanner(System.in);
+		
+		System.out.println("\nEnter page number : ");
+		Integer pageNumber= sc.nextInt();
+		if(pageNumber <= totalPages) {
+		}else {
+			System.err.println("page not available ...");
+		}*/
+
+	}
+	
+	public static void main(String[] args) {
+		/*Scanner sc=new Scanner(System.in);
+
+		System.out.println("\nEnter page each size : ");
+		int pageSize =sc.nextInt();
+		System.err.println("note : now on all pages record size will be "+pageSize +"\n\n");
+		String choice="yes";*/
+		Integer currentPage=1;
+		
+		totalEmp=ProjectionImpl.totalEmployeeCount();
+		
+		//here both deviser and divident should be of  double type. 
+		Double totalPages =(double) Math.ceil(28.0/3.0);
+		System.out.println("Total Pages : "+totalPages +"\t current page : "+currentPage);
+		
+//			getEmployeeOrderByEidandPagination(currentPage,pageSize);
+		
+		
+		
+		/*do{
+			
+//			System.out.println("Enter page number : ");
+//			pagination(pageSize,totalPages.intValue(),1);
+			
+			pagination(pageSize,totalPages.intValue(),currentPage);
+			System.out.println("\n\n exit from pagination menu ?  (yes[y] / no[n] ):");
+			choice=sc.next();
+			
+		}while(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y"));*/
+	}
 }	
