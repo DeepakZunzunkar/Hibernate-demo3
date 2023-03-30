@@ -154,6 +154,11 @@ public class Employee {
 		this.firstName = firstName;
 		this.gender = gender;
 	}
+
+	public Employee(BaseProperties baseProperties) {
+		super();
+		this.baseProperties = baseProperties;
+	}
     
 	
 }

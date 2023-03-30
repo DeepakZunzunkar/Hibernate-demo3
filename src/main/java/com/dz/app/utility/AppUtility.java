@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +21,13 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import com.dz.app.model.entity.BaseProperties;
 import com.dz.app.model.entity.Employee;
 import com.dz.app.service.EmployeeService;
 import com.dz.app.serviceImpl.EmployeeServiceImpl;
 import com.dz.app.serviceImpl.ProjectionImpl;
+import com.dz.app.utility.Constant.EmployeeStatus;
+import com.dz.app.utility.Constant.Gender;
 
 
 public class AppUtility {
@@ -415,5 +419,93 @@ public class AppUtility {
 			choice=sc.next();
 			
 		}while(choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y"));*/
+	}
+	
+	public static Employee setEmployeeForm(Scanner sc,String label,Employee trn) {
+		
+		
+		if(trn!=null) {
+			trn.getBaseProperties().setUpdatedBy("admin");
+			trn.getBaseProperties().setUpdatedOn(new Date());
+		}else {
+			trn = new Employee(new BaseProperties("A",new Date(),"admin",null, null));
+		}
+		
+		if(label.equalsIgnoreCase("ADD") || label.equalsIgnoreCase("ALL")|| label.equalsIgnoreCase("NAMES")) {
+			
+			System.out.println("First Name________:\n");
+			trn.setFirstName(sc.next());
+			
+			System.out.println("Last Name_________:\n");
+			trn.setLastName(sc.next());
+			
+		}
+		if(label.equalsIgnoreCase("ADD") || label.equalsIgnoreCase("ALL") || label.equalsIgnoreCase("GENDER")){
+			
+			System.out.println("Gender \n 1.Male\n 2.Female : ");
+			int gChoice =sc.nextInt();
+			switch (gChoice)
+			{
+				case 1:	
+						trn.setGender(Gender.MALE.getGenderValue());
+						break;
+				case 2: 
+						trn.setGender(Gender.FEMALE.getGenderValue());
+						break;
+				default:
+						trn.setGender("NA");
+						break;
+			}	
+			
+		}
+		if(label.equalsIgnoreCase("ADD") || label.equalsIgnoreCase("ALL") || label.equalsIgnoreCase("DOB")){
+			
+			System.out.println("Date Of Birth [ yyyy-mm-dd ] _________:\n");
+			String dateStr = sc.next();
+			trn.setBirthDate(DateUtils.convertStringToJUtilDateTime(dateStr));
+			
+		}
+		if(label.equalsIgnoreCase("ADD") || label.equalsIgnoreCase("STATUS")) {
+			trn.setStatus(label.equalsIgnoreCase("STATUS")? trn.getStatus():EmployeeStatus.ACTIVE.getEmployeeStatusCode());
+		}
+		if(label.equalsIgnoreCase("ADD")){
+			System.out.println("Salary per month ________:\n");
+			trn.setSalary(Double.parseDouble(sc.next()));
+		}
+				
+		return trn;
+	}
+	
+	public static Employee updateEmployeeForm(Scanner sc, Employee empTrn) {
+		
+		System.out.println("select your choise \n");
+		
+		System.out.println("1]update first and last name  ");
+		System.out.println("2]update gender ");
+		System.out.println("3]update dob ");
+		System.out.println("4]update all data\n");
+		
+		int choice =sc.nextInt();
+		
+		switch (choice)
+		{
+			case 1:	
+					empTrn= setEmployeeForm(sc,"NAMES",empTrn);
+					break;
+			case 2: 
+					empTrn= setEmployeeForm(sc,"GENDER",empTrn);
+					break;
+			case 3:	
+					empTrn= setEmployeeForm(sc,"DOB",empTrn);
+					break;
+			case 4: 
+					empTrn= setEmployeeForm(sc,"ALL",empTrn);
+					break;
+			default:
+					System.err.println("Invalid Choice,try again\n");
+					break;
+		}	
+		
+		return empTrn;
 	}
 }	
