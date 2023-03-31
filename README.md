@@ -8,7 +8,7 @@ This is basic Hibernate partialy xml and Annotaions configuration ` consoled bas
 >[doc](https://docs.jboss.org/hibernate/entitymanager/3.5/reference/en/html/architecture.html)
 
 **Topics Covered** 
->`nativeSQl`,`HQL`,`save vs persist`,`update vs merge`,`get vs load`,`clear vs evict vs close`
+>`HQL`,`HQL – Native SQL`,`Criteria`,`HQL – Paging Through the ResultSet`,`HQL Named Queries`,`save vs persist`,`update vs merge`,`get vs load`,`clear vs evict vs close`
 
 #### Difference save  vs persist 
 > Actually the difference between hibernate save() and persist() methods is depends on generator class we are using.
