@@ -1,4 +1,4 @@
-package com.dz.app.serviceImpl.nativeSqlByHibernate;
+package com.dz.app.serviceImpl.hql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import com.dz.app.model.entity.Employee;
 import com.dz.app.service.EmployeeService;
 import com.dz.app.utility.AppUtility;
 
-public class TestNativeSql {
+public class TestHql {
 
 	public static void main(String[] args) {
 		
@@ -22,9 +22,7 @@ public class TestNativeSql {
     	
     	do
 		{
-    		//here initializeLandingPage does't used native sql EmployeService  
     		AppUtility.initializeLandingPage();
-    		
     		System.out.println("select your choice \n");
 			
     		System.out.println("1]Add  ");
@@ -39,12 +37,7 @@ public class TestNativeSql {
 			switch (num)
 			{
 				case 1:	
-							empTrn= AppUtility.setEmployeeForm(sc,"ADD",null);
-							AppUtility.loader();
-							empTrn = eservice.saveEmployee(empTrn);
-							if(empTrn.getEid()==null) {
-								System.err.println("not added ,employee already exist");
-							}
+							System.err.println("In HQL , we can not do insert operation using the old-fashioned SQL way of INSERT INTO ... VALUES ...");
 							break;
 				case 2:
 							System.out.println("****** UPDATE BY ID ***** \n");

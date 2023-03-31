@@ -62,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Employee updateEmployee(Employee empTrn) {
+	public Employee updateEmployee(Employee employee) {
 		
 		try(Session session = Factory.getSessionFactory().openSession()) {
 			
@@ -85,11 +85,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 				tx.rollback();
 			e.printStackTrace();
 		} 
-		return empTrn;
+		return employee;
 	}
 
 	@Override
-	public void deleteEmployee(Employee empTrn) {
+	public void deleteEmployee(Employee employee) {
 		
 		try(Session session = Factory.getSessionFactory().openSession()) {
 			
@@ -120,9 +120,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			tx = session.beginTransaction();
 //			employee=session.get(Employee.class,eid);
 			
-			SQLQuery query =session.createSQLQuery("SELECT eid,firstname,lastname,gender,birthDate,salary,status,active,createdon,createdby,updatedon,updatedby FROM adpemployee where eid="+eid);
+			SQLQuery<Employee> query =session.createSQLQuery("SELECT eid,firstname,lastname,gender,birthDate,salary,status,active,createdon,createdby,updatedon,updatedby FROM adpemployee where eid="+eid);
 			
-			List<Object[]> rows = query.list();
+			/*List<Object[]> rows = query.list();
 			for(Object[] row : rows){
 				employee = new Employee();
 				
@@ -141,7 +141,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.getBaseProperties().setUpdatedOn(row[10]!=null?DateUtils.convertStringToJUtilDateTime(row[10].toString()):null);
 				employee.getBaseProperties().setUpdatedBy(row[11]!=null?row[11].toString():"");
 				
-			}	
+			}	*/
+			
+			query.addEntity("employee",Employee.class);
+			
+//			List<Employee> rows = query.list();
+			
+			employee = query.getSingleResult();
+			
 			tx.commit();
 
 		} catch (Exception e) {
@@ -159,9 +166,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			tx = session.beginTransaction();
 //			employee=session.get(Employee.class,eid);
 			
-			SQLQuery query =session.createSQLQuery("SELECT eid,firstname,lastname,gender,birthDate,salary,status,active,createdon,createdby,updatedon,updatedby FROM adpemployee order by eid desc");
+			SQLQuery<Employee> query =session.createSQLQuery("SELECT eid,firstname,lastname,gender,birthDate,salary,status,active,createdon,createdby,updatedon,updatedby FROM adpemployee order by eid desc");
 			
-			List<Object[]> rows = query.list();
+			/*List<Object[]> rows = query.list();
 			for(Object[] row : rows){
 				employee = new Employee();
 				
@@ -181,7 +188,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.getBaseProperties().setUpdatedBy(row[11]!=null?row[11].toString():"");
 				
 				employees.add(employee);
-			}	
+			}*/	
+			query.addEntity(Employee.class);
+			employees= query.list();
+			
 			tx.commit();
 
 		} catch (Exception e) {
