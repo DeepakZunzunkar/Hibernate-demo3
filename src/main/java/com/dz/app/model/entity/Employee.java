@@ -14,12 +14,32 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NamedNativeQueries;
+import org.hibernate.annotations.NamedNativeQuery;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 
 
 /**
  * @author dz Mar 17, 2023
  *
  */
+
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name="sql_findAll",query="select eid,firstname,lastname,gender,birthDate,salary,status,active,createdon,createdby,updatedon,updatedby from AdpEmployee")
+})
+
+@NamedQueries({
+	
+	
+	@NamedQuery(name="hql_findAll",query="from Employee order by firstName asc"),
+	@NamedQuery(name="hql_findById",query="from Employee where eid=:eid"),
+	@NamedQuery(name="hql_updateAll" ,query="update Employee set firstname=:fname,lastname=:lname,gender=:gender,birthDate=:birthDate,salary=:salary,status=:status,active=:active,updatedby=:updatedby,updatedon=:updatedon where eid=:eid"),
+	@NamedQuery(name="hql_deleteById", query="delete Employee where eid=:eid"),
+	
+})
 @Entity
 @Table(name="AdpEmployee",schema="EMPRDEV")
 public class Employee {
